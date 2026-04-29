@@ -1,40 +1,49 @@
 class Solution {
     public void setZeroes(int[][] matrix) {
-        int m = matrix.length;
-        int n = matrix[0].length;
-        int[] rz = new int[m];
-        int[] cz = new int[n];
-        for(int i = 0; i < m ; i++)
-        {
-            for(int j = 0 ;j< n;j++)
-            {
-                if(matrix[i][j] == 0)
-                {
-                    rz[i] = 1;
-                    cz[j] = 1;
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        boolean firstRowZero = false;
+        boolean firstColZero = false;
+        for (int i = 0; i < cols; i++) {
+            if (matrix[0][i] == 0) {
+                firstRowZero = true;
+                break;
+            }
+        }
+        for (int i = 0; i < rows; i++) {
+            if (matrix[i][0] == 0) {
+                firstColZero = true;
+                break;
+            }
+        }
+
+        for (int i = 1; i < rows; i++) {
+            for (int j = 1; j < cols; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
                 }
             }
         }
-        for(int i = 0;i < m;i++)
-        {
-            if(rz[i] == 1)
-            {
-                for(int j = 0 ;j< n;j++)
-                {
+
+        for (int i = 1; i < rows; i++) {
+            for (int j = 1; j < cols; j++) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
                     matrix[i][j] = 0;
                 }
             }
         }
-        for(int j = 0; j < n;j++)
-        {
-            if(cz[j] == 1)
-            {
-                for(int i = 0 ;i< m;i++)
-                {
-                    matrix[i][j] = 0;
-                }
+        if (firstColZero) {
+            for (int i = 0; i < rows; i++) {
+
+                matrix[i][0] = 0;
             }
         }
-        
+        if (firstRowZero) {
+            for (int i = 0; i < cols; i++) {
+
+                matrix[0][i] = 0;
+            }
+        }
     }
 }
