@@ -18,7 +18,7 @@ class Solution {
             {
                 targetRem--;
             }
-            //Count character, even if not needed in t as it fart of window
+            //Count character, even if not needed in t as it is part of window
             hm.put(ch, hm.getOrDefault(ch,0)-1);
             if(targetRem == 0) //window found
             {
