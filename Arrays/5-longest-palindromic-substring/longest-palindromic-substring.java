@@ -8,9 +8,7 @@ class Solution {
     // Shrink left pointer when condition breaks
     public String longestPalindrome(String s) {
         int n = s.length();
-
         int[] ans = new int[] { 0, 0 };
-
         for (int i = 0; i < n; i++) {
             //check max length for both odd len and even len palindromes at each index
             int oddLen = expand(i,i,s);
@@ -21,7 +19,6 @@ class Solution {
                 ans[0] = i - dist;
                 ans[1] = i + dist;
             }
-
             int evenLen = expand(i,i+1,s);
             if(evenLen > ans[1] - ans[0] + 1)
             {
@@ -30,7 +27,6 @@ class Solution {
                 ans[1] = i + dist + 1;
             }
         }
-
         return s.substring(ans[0],ans[1]+1);
     }
     private int expand(int i, int j, String s)
