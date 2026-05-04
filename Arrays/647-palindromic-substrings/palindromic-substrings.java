@@ -1,26 +1,22 @@
 class Solution {
     public int countSubstrings(String s) {
         int n = s.length();
-        List<String> res = new ArrayList<>();
-        int[] ans = new int[] { 0, 0 };
+        int count =0;
         for (int i = 0; i < n; i++) {
-            expand(i,i,s, res);
-            
-            expand(i,i+1,s,res);
-           
+            count += expand(i,i,s); //odd len
+            count += expand(i,i+1,s); //even len  
         }
-        return res.size();
+        return count;
     }
-    private void expand(int i, int j, String s, List<String> res)
+    private int expand(int left, int right, String s)
     {
-        int left = i;
-        int right = j;
-        
+        int ct = 0;
         while(left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right))
         {
-            res.add(s.substring(i,j+1));
+            ct++;
             left--;
             right++;
         }
+        return ct;
     }
 }
