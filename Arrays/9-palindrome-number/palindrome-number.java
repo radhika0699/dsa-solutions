@@ -3,7 +3,6 @@ class Solution {
     //Approach 2: reverse number, check if numbers are same
     public boolean isPalindrome(int x) {
         int y = 0, t = x;
-
         while(t>0)
         {
             int r = t%10;
