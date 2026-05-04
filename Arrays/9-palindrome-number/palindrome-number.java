@@ -1,15 +1,15 @@
 class Solution {
-    //2 pointers
+    //Approach 1: Convert to string, 2 pointers
+    //Approach 2: reverse number, check if numbers are same
     public boolean isPalindrome(int x) {
-        String s = String.valueOf(x);
-        int l = 0, r = s.length()-1;
-        while(l <= r)
+        int y = 0, t = x;
+
+        while(t>0)
         {
-            if(s.charAt(l) != s.charAt(r))
-                return false;
-            l++;
-            r--;
+            int r = t%10;
+            y=y*10+r;
+            t/=10;
         }
-        return true;
+        return x == y? true : false;
     }
 }
