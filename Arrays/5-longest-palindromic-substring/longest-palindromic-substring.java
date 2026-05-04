@@ -8,40 +8,42 @@ class Solution {
     // Shrink left pointer when condition breaks
     public String longestPalindrome(String s) {
         int n = s.length();
-        boolean[][] dp = new boolean[n][n];
+
         int[] ans = new int[] { 0, 0 };
 
         for (int i = 0; i < n; i++) {
-            //checking substring from i to i is always palin
-            dp[i][i] = true;
-        }
-
-        
-        for (int i = 0; i < n-1; i++) {
-           //2 char palindrome
-           if(s.charAt(i) == s.charAt(i+1))
+            //check max length for both odd len and even len palindromes at each index
+            int oddLen = expand(i,i,s);
+            if(oddLen > ans[1] - ans[0] + 1)
             {
-                dp[i][i+1] = true;
-                ans[0] = i;
-                ans[1] = i+1;
+                //distance from center to boundary of palin
+                int dist = oddLen/2;
+                ans[0] = i - dist;
+                ans[1] = i + dist;
+            }
+
+            int evenLen = expand(i,i+1,s);
+            if(evenLen > ans[1] - ans[0] + 1)
+            {
+               int dist = (evenLen/2) - 1;
+                ans[0] = i - dist;
+                ans[1] = i + dist + 1;
             }
         }
 
-        for(int diff=2;diff<n;diff++)
-        {
-            //3 char palin to max
-            for(int i = 0; i < n-diff;i++)
-            {
-                int j = i+ diff;
-                if(s.charAt(i) == s.charAt(j) && dp[i+1][j-1])
-                {
-                    dp[i][j] = true;
-                    ans[0] = i;
-                    ans[1] = j;
-                }
-            }
-        }
         return s.substring(ans[0],ans[1]+1);
     }
-
+    private int expand(int i, int j, String s)
+    {
+        int left = i;
+        int right = j;
+        //expand from center
+        while(left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right))
+        {
+            left--;
+            right++;
+        }
+        return right-left-1; //right is one more than valid,left is one less than valid
+        //includes 2 indices out of bounds, right - left + 1 - 2
+    }
 }
