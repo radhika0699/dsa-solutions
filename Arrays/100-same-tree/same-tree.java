@@ -21,8 +21,6 @@ class Solution {
             return false;
         if (p.val != q.val)
             return false;
-        System.out.println(p.left+ "" +q.left);
-
         return isSameTree(p.left, q.left) &&
         isSameTree(p.right, q.right);
     }
