@@ -6,20 +6,24 @@ class Solution {
         for (int i = 0; i < n; i++) // 0 -> 2
         {
             if (!visited[i]) {
-                dfs(i, isConnected, visited);
+                bfs(i, isConnected, visited);
                 ct++;
             }
         }
         return ct;
     }
 
-    public void dfs(int v, int[][] isConnected, boolean[] visited) {
-        visited[v]= true;
-        for(int i = 0; i < isConnected.length;i++)
-        {
-            if(isConnected[v][i] == 1 && !visited[i])
-            {
-                dfs(i, isConnected , visited);
+    public void bfs(int v, int[][] isConnected, boolean[] visited) {
+        Queue<Integer> q = new LinkedList<>();
+        q.offer(v);
+        visited[v] = true;
+        while (!q.isEmpty()) {
+            v = q.poll();
+            for (int i = 0; i < isConnected.length; i++) {
+                if (isConnected[v][i] == 1 && !visited[i]) {
+                    q.offer(i);
+                    visited[i] = true;
+                }
             }
         }
     }
